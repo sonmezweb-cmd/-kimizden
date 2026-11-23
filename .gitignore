@@ -1,0 +1,13 @@
+/storage/config.php
+/storage/install.lock
+/storage/logs/*.log
+/storage/sessions/
+/storage/cache/*
+!/storage/cache/.htaccess
+/storage/uploads/photos/
+/storage/backups/*.sql*
+/dist/
+/node_modules/
+/tests/_out/
+/tools/opening-video/node_modules/
+/tools/opening-video/out/
