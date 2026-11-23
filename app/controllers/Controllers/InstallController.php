@@ -24,7 +24,8 @@ final class InstallController
             $c[] = ["PHP eklentisi: $ext", extension_loaded($ext)];
         }
         $c[] = ['GD WebP desteği', function_exists('imagecreatefromwebp')];
-        $c[] = ['Composer bağımlılıkları (vendor/)', is_file(APP_ROOT . '/vendor/autoload.php')];
+        $vendor = APP_ROOT . '/vendor/autoload.php';
+        $c[] = [is_file($vendor) ? 'Composer bağımlılıkları (vendor/)' : 'Composer bağımlılıkları bulunamadı — beklenen dosya: ' . $vendor . ' (ZIP\'teki ikimizden/vendor klasörünü app/ klasörüyle aynı yere yükleyin)', is_file($vendor)];
         foreach (['', 'logs', 'uploads', 'cache', 'backups'] as $d) {
             $p = App::storagePath($d);
             if (!is_dir($p)) @mkdir($p, 0775, true);
