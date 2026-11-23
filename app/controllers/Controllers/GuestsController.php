@@ -68,7 +68,7 @@ final class GuestsController
         if ((int)($o['snapshot']['package']['guest_groups'] ?? 1) !== 1) abort(403, t('guests.not_in_package'));
         $action = (string)($_POST['action'] ?? '');
         if ($action === 'add') {
-            $lines = preg_split('/\R/', str_in('names', 20000)) ?: [];
+            $lines = preg_split('/\R/u', str_in('names', 20000)) ?: [];
             $max = max(1, min(20, (int)($_POST['max_guests'] ?? 2)));
             $n = 0;
             foreach ($lines as $line) {

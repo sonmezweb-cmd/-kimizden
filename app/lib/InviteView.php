@@ -44,6 +44,7 @@ final class InviteView
             'poster' => $theme['media']['poster'],
             'texture' => $theme['media']['texture'],
             'ornament' => $theme['media']['ornament'],
+            'body' => $theme['media']['body'],
             'seal' => $theme['media']['seal'],
             'paper' => $theme['media']['paper'],
             'sheenMask' => $theme['media']['sheen'],

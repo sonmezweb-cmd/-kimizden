@@ -182,7 +182,7 @@ final class AdminController
             $name = [];
             foreach (I18n::LANGS as $l) {
                 $name[$l] = mb_substr(trim((string)($p['name'][$l] ?? '')), 0, 80);
-                $scope[$l] = array_values(array_filter(array_map('trim', preg_split('/\R/', (string)($p['scope'][$l] ?? '')) ?: [])));
+                $scope[$l] = array_values(array_filter(array_map('trim', preg_split('/\R/u', (string)($p['scope'][$l] ?? '')) ?: [])));
             }
             DB::update('packages', [
                 'name_json' => jenc($name), 'scope_json' => jenc($scope),

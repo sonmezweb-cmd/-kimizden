@@ -141,7 +141,7 @@
     var mq = window.matchMedia;
     var reduce = mq && mq('(prefers-reduced-motion: reduce)').matches;
     var conn = navigator.connection || {};
-    var lowData = !!conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '');
+    var lowData = !!conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '') || /[?&]novideo=1/.test(location.search);
     var W = this.stage.clientWidth, H = this.stage.clientHeight;
     var wide = W > H * 1.05;
     if (reduce && !this.card) return 'lite';
@@ -242,37 +242,33 @@
       st.top = (G.seal[1] - size / 2) + 'px';
     }
     if (!this.el || !this.el.body) return;
-    var bgPoster = 'url("' + c.poster + '")';
-    var posBg = function (el) {
-      el.style.backgroundImage = bgPoster;
-      el.style.backgroundSize = G.r.w + 'px ' + G.r.h + 'px';
-      el.style.backgroundPosition = G.r.x + 'px ' + G.r.y + 'px';
-      el.style.backgroundRepeat = 'no-repeat';
-    };
     var flapPoly = poly(G.flap);
     var bodyPoly = poly([G.L, G.tip, G.R, [W, H], [0, H]]);
-    this.el.interior.style.backgroundImage = c.texture ? 'url("' + c.texture + '")' : '';
+    var tex = c.texture ? 'url("' + c.texture + '")' : 'none';
+    var tileSize = Math.round(600 * G.r.w / 1080) + 'px';
+    this.el.interior.style.backgroundImage = tex;
+    this.el.interior.style.backgroundSize = tileSize;
+    // gövde ve kapak: doku tüm sahneyi kaplar; kabartmalı görsel (mühürsüz) poster konumunda üstte
+    var setLayer = function (el, art) {
+      el.style.backgroundImage = tex;
+      el.style.backgroundSize = tileSize;
+      el.style.backgroundRepeat = 'repeat';
+      var a = el.querySelector('.L-art');
+      if (!a) { a = document.createElement('div'); a.className = 'L-art'; el.appendChild(a); }
+      a.style.left = G.r.x + 'px'; a.style.top = G.r.y + 'px';
+      a.style.width = G.r.w + 'px'; a.style.height = G.r.h + 'px';
+      a.style.backgroundImage = 'url("' + art + '")';
+      a.classList.toggle('fade-edges', composed);
+    };
+    setLayer(this.el.body, c.body || c.poster);
+    setLayer(this.el.flap, c.ornament || c.poster);
     if (composed) {
-      // doku ekran kenarlarına uzar; kapak ortadaki kabartma görseliyle
-      var tex = 'url("' + c.texture + '")';
-      this.el.body.style.backgroundImage = 'url("' + c.poster + '"), ' + tex;
-      this.el.body.style.backgroundSize = G.r.w + 'px ' + G.r.h + 'px, 600px 600px';
-      this.el.body.style.backgroundPosition = G.r.x + 'px ' + G.r.y + 'px, 0 0';
-      this.el.body.style.backgroundRepeat = 'no-repeat, repeat';
-      this.el.body.style.webkitMaskImage = this.el.body.style.maskImage = '';
-      this.el.flap.style.backgroundImage = 'url("' + c.ornament + '"), ' + tex;
-      this.el.flap.style.backgroundSize = G.r.w + 'px ' + G.r.h + 'px, 600px 600px';
-      this.el.flap.style.backgroundPosition = G.r.x + 'px ' + G.r.y + 'px, 0 0';
-      this.el.flap.style.backgroundRepeat = 'no-repeat, repeat';
       var d = 'M0,' + G.L[1] + ' L' + G.tip[0] + ',' + G.tip[1] + ' L' + W + ',' + G.R[1];
       var py = G.pocketSide, pt = G.pocketTipY;
       var d2 = 'M0,' + (py + (H - py) * 0.4) + ' L' + G.tip[0] + ',' + pt + ' L' + W + ',' + (py + (H - py) * 0.4);
       var paths = this.el.lines.querySelectorAll('path');
       paths[0].setAttribute('d', d); paths[1].setAttribute('d', d2);
       this.el.lines.firstChild.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-    } else {
-      posBg(this.el.body);
-      posBg(this.el.flap);
     }
     this.el.body.style.clipPath = this.el.body.style.webkitClipPath = bodyPoly;
     this.el.flap.style.clipPath = this.el.flap.style.webkitClipPath = flapPoly;
@@ -494,6 +490,7 @@
     var env = new Envelope(root, cfg);
     env.init();
     var driver = new ScrollDriver(env);
+    window.__ikzEnv = env; // tanılama ve otomatik testler için
     var letter = document.getElementById('letter');
     var focusLetter = function () {
       var h = document.getElementById('inv-title');
@@ -563,7 +560,7 @@
       if (!layers) { layers = document.createElement('div'); layers.className = 'env-layers'; stage.insertBefore(layers, posterImg.nextSibling); }
       env = new Envelope(stage, {
         poster: c.poster, video: null, geometry: c.geometry, sealSize: c.sealSize, texture: c.texture,
-        ornament: c.ornament, seal: c.seal, paper: c.paper, sheenMask: c.sheen, sheen: c.sheenKind || 'copper', audio: {}
+        ornament: c.ornament, body: c.body, seal: c.seal, paper: c.paper, sheenMask: c.sheen, sheen: c.sheenKind || 'copper', audio: {}
       }, { card: true });
       env.root = stage;
       env.stage = stage;

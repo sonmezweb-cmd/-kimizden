@@ -46,6 +46,7 @@ final class Catalog
             'video_wide' => $f('opening-wide.mp4'),
             'texture' => $f('texture.webp'),
             'ornament' => $f('ornament.webp'),
+            'body' => $f('body.webp'),
             'seal' => $f('seal.webp'),
             'paper' => $f('paper.webp'),
             'sheen' => $f('sheen-mask.webp'),

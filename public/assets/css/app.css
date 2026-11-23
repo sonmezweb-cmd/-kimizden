@@ -307,3 +307,5 @@ body.bare { min-height: 100vh; background: radial-gradient(circle at 50% 0%, #ff
 .bare-card { width: 100%; max-width: 520px; background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 28px; box-shadow: var(--shadow); text-align: left; }
 .bare-card.wide { max-width: 720px; }
 .bare-card > img { display: block; margin: 0 auto 14px; }
+a.stat { text-decoration: none; color: inherit; }
+a.stat:hover { outline: 1px solid var(--line-2); }
