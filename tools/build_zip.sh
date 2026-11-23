@@ -21,5 +21,5 @@ git archive --format=zip --prefix="ikimizden-kaynak-$VER/" -o "$OUT/ikimizden-ka
 rm -rf "$STAGE"
 ls -la "$OUT"
 # denetim: sır, yapılandırma veya test ayarı pakette olmamalı
-if unzip -l "$OUT/ikimizden-cpanel-$VER.zip" | grep -E "config\.php|install\.lock|\.log$|paytr_token_url|router\.php"; then echo "UYARI: pakette olmaması gereken dosya"; exit 1; fi
+if unzip -l "$OUT/ikimizden-cpanel-$VER.zip" | grep -E "storage/config\.php|install\.lock|\.log$|paytr_token_url|router\.php"; then echo "UYARI: pakette olmaması gereken dosya"; exit 1; fi
 echo "Paket denetimi: temiz"

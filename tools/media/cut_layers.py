@@ -7,7 +7,7 @@ Girdi: üç tema görseli (dikey, 9:16).
   tools/opening-video/public/{slug}/  → Remotion açılış videosu katmanları (PNG)
   public/themes/{slug}/               → web için poster/önizleme/mühür/doku/kâğıt/ışık maskesi + theme.json
 
-Kullanım: python3 tools/media/cut_layers.py <zeytin.png> <gul.png> <sedef.png>
+Kullanım: python3 tools/media/cut_layers.py tools/media/source/zeytin-varak.png tools/media/source/gul-muhru.png tools/media/source/sedef-kivrimi.png
 """
 import json, os, sys
 import numpy as np

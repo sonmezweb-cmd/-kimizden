@@ -11,3 +11,5 @@
 /tests/_out/
 /tools/opening-video/node_modules/
 /tools/opening-video/out/
+/tools/opening-video/public/*/*.png
+/public/assets/img/logo-original.png
