@@ -6,7 +6,7 @@ $cards = [];
 foreach ($themes as $t) {
     $cards[] = ['slug' => $t['slug'], 'name' => loc($t['name']), 'poster' => $t['media']['poster'], 'video' => $t['media']['video'],
         'geometry' => $t['geometry'], 'sealSize' => $t['seal_size'], 'texture' => $t['media']['texture'], 'ornament' => $t['media']['ornament'],
-        'seal' => $t['media']['seal'], 'paper' => $t['media']['paper'], 'sheen' => $t['media']['sheen'], 'colors' => $t['colors'],
+        'seal' => $t['media']['seal'], 'paper' => $t['media']['paper'], 'sheen' => $t['media']['sheen'], 'sheenKind' => $t['config']['sheen'] ?? 'copper', 'colors' => $t['colors'],
         'font' => $t['config']['font'] ?? 'greatvibes', 'preview' => url('/preview/' . $t['slug'])];
 }
 $demoNames = ['tr' => ['İpek', 'Çağrı'], 'en' => ['Elizabeth', 'Alexander'], 'ru' => ['Анастасия', 'Александр']][$lang];

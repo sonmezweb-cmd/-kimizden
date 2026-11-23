@@ -20,7 +20,7 @@ final class SiteController
     public function home(): void
     {
         $themes = Catalog::themes();
-        View::show('site/home', $this->seo('seo.home.title', 'seo.home.desc', ['themes' => $themes, 'packages' => Catalog::packages(true), 'bodyClass' => 'is-home']));
+        View::show('site/home', $this->seo('seo.home.title', 'seo.home.desc', ['themes' => $themes, 'packages' => Catalog::packages(true), 'bodyClass' => 'is-home', 'extraCss' => ['css/envelope.css']]));
     }
 
     public function themes(): void

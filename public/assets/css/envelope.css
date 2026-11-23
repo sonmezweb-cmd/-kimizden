@@ -1,0 +1,63 @@
+/* İkimizden — zarf motoru katmanları (davetiye sayfası ve vitrin kartı ortak) */
+@font-face { font-family: "Great Vibes"; src: url("../fonts/GreatVibes.woff2") format("woff2"); font-display: swap; }
+@font-face { font-family: "Cormorant"; src: url("../fonts/Cormorant-var.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Cormorant"; src: url("../fonts/Cormorant-Italic-var.woff2") format("woff2"); font-weight: 300 700; font-style: italic; font-display: swap; }
+
+.env-stage { position: relative; overflow: hidden; background: var(--t-lining, #2b0816); isolation: isolate; }
+.env-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block; z-index: 0; user-select: none; }
+.env-layers { position: absolute; inset: 0; z-index: 1; }
+.env-layers .L { position: absolute; inset: 0; will-change: transform, opacity; }
+.env-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .25s; pointer-events: none; }
+.video-on .env-video { opacity: 1; }
+/* CSS açılışı: poster yalnız ilk boyama içindir; katmanlar hazır olunca gizlenir */
+.env-ready[data-mode="poster"] .env-poster, .env-ready[data-mode="composed"] .env-poster, .opener-stage[data-mode="poster"] .env-poster { visibility: hidden; }
+.env-ready.video-on .env-poster { visibility: hidden; }
+.L-interior { background-color: var(--t-lining, #2b0816); background-size: 600px 600px; filter: brightness(.82); }
+.L-interior::after { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 70% at 50% 40%, transparent, rgba(0,0,0,.35)); }
+.L-paper { inset: auto !important; left: 0; top: 0; width: 80%; height: 60%; background: var(--t-paper, #f6efe4) center / cover no-repeat; box-shadow: 0 18px 50px rgba(0,0,0,.28); opacity: 0; }
+.L-flapwrap { transform-style: flat; }
+.L-flapwrap.is-back .L-flap { background-image: none !important; background-color: var(--t-lining, #2b0816); filter: brightness(1.25); }
+.L-flapwrap.is-back .L-sheen { opacity: 0 !important; }
+.L-sheen { opacity: 0; background-size: 300% 300%; mix-blend-mode: screen; pointer-events: none; }
+.sheen-copper { background-image: linear-gradient(115deg, transparent 40%, rgba(255,206,170,.95) 49%, rgba(255,242,228,1) 51%, rgba(255,196,160,.9) 53%, transparent 60%); }
+.sheen-gold { background-image: linear-gradient(115deg, transparent 40%, rgba(255,226,140,.95) 49%, rgba(255,250,216,1) 51%, rgba(240,205,120,.9) 53%, transparent 60%); }
+.sheen-pearl { background-image: linear-gradient(115deg, transparent 40%, rgba(205,188,255,.9) 48%, rgba(255,255,255,1) 51%, rgba(208,226,240,.9) 54%, transparent 61%); mix-blend-mode: soft-light; }
+.L-seal { position: absolute; background: center / contain no-repeat; will-change: transform; }
+.L-lines { pointer-events: none; }
+.L-lines svg { position: absolute; inset: 0; }
+.L-lines .fold, .L-lines .fold2 { fill: none; stroke: rgba(255,255,255,.28); stroke-width: 1.4; filter: drop-shadow(0 1px 1px rgba(0,0,0,.25)); }
+
+/* İsim ve tarih: son görünür ekranın x %12–88, y %28–68 alanı; çentik/tarayıcı çubuğu güvenli alanı */
+.env-text {
+  --sl: env(safe-area-inset-left, 0px); --sr: env(safe-area-inset-right, 0px); --st: env(safe-area-inset-top, 0px); --sb: env(safe-area-inset-bottom, 0px);
+  position: absolute; z-index: 4;
+  left: calc(var(--sl) + (100% - var(--sl) - var(--sr)) * .12);
+  right: calc(var(--sr) + (100% - var(--sl) - var(--sr)) * .12);
+  top: calc(var(--st) + (100% - var(--st) - var(--sb)) * .28);
+  bottom: calc(var(--sb) + (100% - var(--st) - var(--sb)) * .32);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  color: var(--t-ink, #3d0f22); opacity: 0; pointer-events: none; overflow: hidden;
+}
+.env-names { margin: 0; font-weight: 400; line-height: 1.12; font-size: clamp(2.6rem, 12.5vw, 5.4rem); overflow-wrap: anywhere; hyphens: none; }
+.env-names .n1, .env-names .n2 { display: inline-block; max-width: 100%; }
+.env-names .amp { display: inline-block; margin: 0 .18em; font-size: .7em; color: var(--t-accent, #b87459); }
+.font-greatvibes { font-family: "Great Vibes", "Cormorant", serif; }
+.font-cormorant { font-family: "Cormorant", serif; font-style: italic; font-weight: 500; }
+.env-date { margin: .7em 0 0; font: 500 clamp(.95rem, 3.6vw, 1.25rem)/1.3 "Cormorant", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--t-ink, #3d0f22); }
+.env-date::before, .env-date::after { content: ""; display: inline-block; width: 1.6em; height: 1px; background: var(--t-accent, #b87459); vertical-align: middle; margin: 0 .7em; opacity: .8; }
+.opener-stage .env-names { font-size: clamp(2.2rem, 11vw, 3.2rem); }
+.opener-stage .env-text { opacity: 0; }
+
+/* Mühür düğmesi: basma efekti */
+.env-seal { position: absolute; z-index: 5; padding: 0; border: 0; background: none; border-radius: 50%; cursor: pointer; -webkit-tap-highlight-color: transparent; display: none; touch-action: manipulation; }
+.js .env-ready .env-seal { display: block; }
+.env-seal img { width: 100%; height: 100%; display: block; pointer-events: none; transition: transform .18s cubic-bezier(.3,.7,.3,1), filter .18s; }
+.env-seal:hover img { filter: brightness(1.05); }
+.env-seal-ring { position: absolute; inset: 14%; border-radius: 50%; box-shadow: 0 0 0 0 rgba(255,236,210,.55); animation: sealPulse 2.6s ease-out infinite; pointer-events: none; }
+@keyframes sealPulse { 0% { box-shadow: 0 0 0 0 rgba(255,236,210,.45); } 70% { box-shadow: 0 0 0 22px rgba(255,236,210,0); } 100% { box-shadow: 0 0 0 0 rgba(255,236,210,0); } }
+.env-seal.pressed img { animation: sealPress .42s cubic-bezier(.3,.7,.3,1); }
+.env-seal.pressed .env-seal-ring { animation: sealRipple .6s ease-out; }
+@keyframes sealPress { 0% { transform: scale(1); } 35% { transform: scale(.9); filter: brightness(.88) drop-shadow(0 1px 2px rgba(0,0,0,.4)); } 100% { transform: scale(1.03); filter: brightness(1.08); } }
+@keyframes sealRipple { 0% { box-shadow: 0 0 0 0 rgba(255,240,220,.8); } 100% { box-shadow: 0 0 0 46px rgba(255,240,220,0); } }
+.env-seal:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .env-seal-ring { animation: none; } .env-seal.pressed img { animation: none; } }

@@ -28,4 +28,6 @@ $path = current_path();
 <link rel="apple-touch-icon" href="<?= e(\App\App::baseUrl()) ?>/apple-touch-icon.png">
 <link rel="preload" href="<?= e(asset('fonts/Inter-var.woff2')) ?>" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="<?= e(asset('css/app.css')) ?>">
+<?php foreach (($extraCss ?? []) as $css): ?><link rel="stylesheet" href="<?= e(asset($css)) ?>">
+<?php endforeach; ?>
 <script src="<?= e(asset('js/boot.js')) ?>"></script>

@@ -221,6 +221,7 @@ final class AdminController
         'poster' => ['file' => 'poster.webp', 'kind' => 'image', 'max' => 12],
         'preview' => ['file' => 'preview.webp', 'kind' => 'image', 'max' => 12],
         'video' => ['file' => 'opening.mp4', 'kind' => 'video', 'max' => 60],
+        'video_webm' => ['file' => 'opening.webm', 'kind' => 'webm', 'max' => 60],
         'video_wide' => ['file' => 'opening-wide.mp4', 'kind' => 'video', 'max' => 80],
         'texture' => ['file' => 'texture.webp', 'kind' => 'image', 'max' => 8],
         'ornament' => ['file' => 'ornament.webp', 'kind' => 'image_alpha', 'max' => 8],
@@ -301,6 +302,10 @@ final class AdminController
                 return null;
             case 'video':
                 if ($mime !== 'video/mp4' || $ext !== 'mp4') return 'upload.err.type';
+                move_uploaded_file($f['tmp_name'], $dir . '/' . $def['file']);
+                return null;
+            case 'webm':
+                if ($mime !== 'video/webm' || $ext !== 'webm') return 'upload.err.type';
                 move_uploaded_file($f['tmp_name'], $dir . '/' . $def['file']);
                 return null;
             case 'audio':

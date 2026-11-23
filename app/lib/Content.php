@@ -13,7 +13,7 @@ use DateTimeZone;
 final class Content
 {
     public const EVENT_TYPES = ['engagement', 'henna', 'civil', 'wedding', 'cocktail', 'dinner', 'other'];
-    public const TEXT_FIELDS = ['intro' => 600, 'letter' => 3000, 'dress' => 600, 'transport' => 1200, 'stay' => 1200, 'notes' => 1500];
+    public const TEXT_FIELDS = ['intro' => 600, 'letter' => 3000, 'quote' => 500, 'quote_by' => 120, 'dress' => 600, 'transport' => 1200, 'stay' => 1200, 'notes' => 1500];
     public const MAX_EVENTS = 6;
     public const MAX_GALLERY = 24;
 

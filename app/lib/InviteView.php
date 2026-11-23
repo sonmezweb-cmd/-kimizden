@@ -38,8 +38,15 @@ final class InviteView
         $engine = [
             'theme' => $theme['slug'],
             'video' => $theme['media']['video'],
+            'videoMp4' => $theme['media']['video_mp4'],
+            'videoWebm' => $theme['media']['video_webm'],
             'videoWide' => $theme['media']['video_wide'],
             'poster' => $theme['media']['poster'],
+            'texture' => $theme['media']['texture'],
+            'ornament' => $theme['media']['ornament'],
+            'seal' => $theme['media']['seal'],
+            'paper' => $theme['media']['paper'],
+            'sheenMask' => $theme['media']['sheen'],
             'geometry' => $theme['geometry'],
             'sealSize' => $theme['seal_size'],
             'audio' => $theme['audio'],
@@ -65,6 +72,8 @@ final class InviteView
         $c['texts'][$lang] = [
             'intro' => t('showcase.intro', [], $lang),
             'letter' => t('showcase.letter', [], $lang),
+            'quote' => t('showcase.quote', [], $lang),
+            'quote_by' => t('showcase.quote_by', [], $lang),
             'dress' => t('showcase.dress', [], $lang),
             'transport' => '', 'stay' => '', 'notes' => '',
         ];
@@ -75,6 +84,7 @@ final class InviteView
                 'venue' => t('showcase.venue2', [], $lang), 'address' => t('showcase.address2', [], $lang)],
         ]);
         $c['cover_event_id'] = 'demo0001';
+        $c['contact'] = ['name' => '', 'phone' => ''];
         $c['rsvp'] = ['enabled' => true, 'deadline' => "$year-05-31", 'ask_counts' => true, 'max_public' => 4];
         return $c;
     }

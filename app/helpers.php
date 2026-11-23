@@ -104,7 +104,7 @@ function abort(int $code, string $msg = ''): never
 {
     http_response_code($code);
     if (wants_json()) json_out(['ok' => false, 'error' => $msg ?: t('error.generic')], $code);
-    echo App\View::render('errors/http', ['code' => $code, 'msg' => $msg], 'site');
+    echo \App\View::render('errors/http', ['code' => $code, 'msg' => $msg], 'site');
     exit;
 }
 
@@ -164,7 +164,7 @@ function nl_paras(string $text): string
 
 function current_path(): string
 {
-    return App\Router::$path ?? '/';
+    return \App\Router::$path ?? '/';
 }
 
 function is_active_path(string $prefix): bool

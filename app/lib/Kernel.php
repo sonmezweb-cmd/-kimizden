@@ -48,7 +48,7 @@ final class Kernel
         header('Referrer-Policy: strict-origin-when-cross-origin');
         header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
         $frame = str_starts_with($path, '/panel/orders/') ? "'self'" : (str_starts_with($path, '/pay/') ? "'self' https://www.paytr.com" : "'none'");
-        header("Content-Security-Policy: default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' https://www.paytr.com; frame-src 'self' https://www.paytr.com; connect-src 'self'; form-action 'self' https://www.paytr.com; frame-ancestors $frame; base-uri 'self'; object-src 'none'");
+        header("Content-Security-Policy: default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' https://www.paytr.com; frame-src 'self' https://www.paytr.com https://www.google.com https://maps.google.com; connect-src 'self'; form-action 'self' https://www.paytr.com; frame-ancestors $frame; base-uri 'self'; object-src 'none'");
         if (App::isHttps()) header('Strict-Transport-Security: max-age=31536000');
     }
 
