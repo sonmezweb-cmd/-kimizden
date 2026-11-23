@@ -26,6 +26,7 @@ $noindex = $mode !== 'showcase';
 <link rel="icon" href="<?= e(App::baseUrl()) ?>/favicon.ico" sizes="any">
 <link rel="preload" as="image" href="<?= e($theme['media']['poster']) ?>" fetchpriority="high">
 <link rel="stylesheet" href="<?= e(asset('css/invite.css')) ?>">
+<?php if (is_file(App::publicPath('assets/css/themes/' . $theme['slug'] . '.css'))): ?><link rel="stylesheet" href="<?= e(asset('css/themes/' . $theme['slug'] . '.css')) ?>"><?php endif; ?>
 <script src="<?= e(asset('js/boot.js')) ?>"></script>
 </head>
 <body class="inv theme-<?= e($theme['slug']) ?> mode-<?= e($mode) ?>" style="--t-surface: <?= e($col['surface'] ?? '#5a1630') ?>; --t-ink: <?= e($col['ink'] ?? '#3a1426') ?>; --t-accent: <?= e($col['accent'] ?? '#b87459') ?>; --t-paper: <?= e($col['paper'] ?? '#f6efe4') ?>; --t-lining: <?= e($col['lining'] ?? '#2b0816') ?>; --t-edge: <?= e($col['paperEdge'] ?? ($col['accent'] ?? '#b87459')) ?>; --paper-img: url('<?= e($theme['media']['paper'] ?? '') ?>');">

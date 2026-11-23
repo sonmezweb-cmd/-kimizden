@@ -1,0 +1,255 @@
+/* İkimizden — Gül Mührü tipografisi ve ayrıntıları.
+   Yalnız .theme-gul-muhru gövdesinde geçerlidir; diğer temaları etkilemez.
+   İsim: Pinyon Script (Kiril harfler Great Vibes ile) · Başlık/etiket: Forum · Metin: EB Garamond */
+
+@font-face { font-family: "Pinyon Script"; src: url("../../fonts/PinyonScript.woff2") format("woff2"); font-display: swap; }
+@font-face { font-family: "Forum"; src: url("../../fonts/Forum.woff2") format("woff2"); font-display: swap; }
+@font-face { font-family: "EB Garamond"; src: url("../../fonts/EBGaramond-var.woff2") format("woff2"); font-weight: 400 800; font-display: swap; }
+@font-face { font-family: "EB Garamond"; src: url("../../fonts/EBGaramond-Italic-var.woff2") format("woff2"); font-weight: 400 800; font-style: italic; font-display: swap; }
+/* Kiril isimler için yazı eli: Pinyon Kiril içermediğinden yalnız bu harf aralığında Great Vibes */
+@font-face { font-family: "Gul Script"; src: url("../../fonts/PinyonScript.woff2") format("woff2"); unicode-range: U+0000-024F, U+0300-036F, U+1E00-1EFF, U+2000-206F; font-display: swap; }
+@font-face { font-family: "Gul Script"; src: url("../../fonts/GreatVibes.woff2") format("woff2"); unicode-range: U+0400-04FF; font-display: swap; }
+
+.theme-gul-muhru {
+  --g-ink: #47101f;
+  --g-ink-soft: #6b2f40;
+  --g-copper: #a8634c;
+  --g-copper-lt: #d6a088;
+  --g-hair: rgba(168, 99, 76, .45);
+  --g-script: "Gul Script", "Pinyon Script", "Great Vibes", cursive;
+  --g-caps: "Forum", "Cormorant Garamond", "Times New Roman", serif;
+  --g-text: "EB Garamond", "Cormorant Garamond", Georgia, serif;
+  --g-foil: linear-gradient(100deg, #5e2219 0%, #8a4433 24%, #b97a60 42%, #8f4a37 58%, #6a2a1f 76%, #a5644c 100%);
+  font-family: var(--g-text);
+  color: var(--g-ink);
+  font-feature-settings: "kern", "liga", "lnum";
+}
+
+/* ---------------------------------------------------------------- zarf üzerindeki isim ve tarih */
+.theme-gul-muhru .env-names {
+  font-family: var(--g-script);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 16.5vw, 6.4rem);
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+.theme-gul-muhru .env-names .n1,
+.theme-gul-muhru .env-names .n2,
+.theme-gul-muhru .s-names,
+.theme-gul-muhru .inv-foot-names {
+  background: var(--g-foil);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  padding: .08em .12em .18em; /* el yazısı kuyrukları kesilmesin */
+}
+.theme-gul-muhru .env-names .amp,
+.theme-gul-muhru .s-names .amp {
+  display: block;
+  margin: .02em auto .04em;
+  font-family: var(--g-text);
+  font-style: italic;
+  font-weight: 400;
+  font-size: .42em;
+  color: var(--g-copper);
+  -webkit-text-fill-color: var(--g-copper);
+  line-height: 1;
+}
+.theme-gul-muhru .env-date {
+  margin-top: 1.1em;
+  font-family: var(--g-caps);
+  font-weight: 400;
+  font-size: clamp(.82rem, 3.4vw, 1.05rem);
+  letter-spacing: .28em;
+  color: var(--g-ink-soft);
+}
+.theme-gul-muhru .env-date::before,
+.theme-gul-muhru .env-date::after { width: 2.4em; background: linear-gradient(90deg, transparent, var(--g-copper)); height: 1px; margin: 0 .9em; }
+.theme-gul-muhru .env-date::after { background: linear-gradient(90deg, var(--g-copper), transparent); }
+
+/* zarf üzerindeki küçük düğmeler */
+.theme-gul-muhru .env-hint-btn,
+.theme-gul-muhru .env-ctl { font-family: var(--g-caps); font-weight: 400; letter-spacing: .2em; }
+.theme-gul-muhru .env-hint-btn { font-size: .78rem; background: rgba(43, 8, 22, .35); border-color: rgba(230, 190, 170, .45); }
+.theme-gul-muhru .env-ctl { letter-spacing: .12em; font-size: .72rem; }
+
+/* ---------------------------------------------------------------- mektup */
+.theme-gul-muhru .letter-paper { max-width: 600px; padding-top: 44px; }
+.theme-gul-muhru .inv-langs a { font-family: var(--g-caps); letter-spacing: .16em; font-size: .74rem; border-color: var(--g-hair); }
+.theme-gul-muhru .greeting { font-family: var(--g-text); font-style: italic; font-size: 1.45rem; color: var(--g-ink-soft); }
+.theme-gul-muhru .intro {
+  font-family: var(--g-caps);
+  font-weight: 400;
+  font-size: .86rem;
+  letter-spacing: .3em;
+  color: var(--g-copper);
+  margin-bottom: 22px;
+}
+.theme-gul-muhru .letter-body {
+  font-family: var(--g-text);
+  font-size: 1.24rem;
+  line-height: 1.78;
+  color: var(--g-ink);
+  text-wrap: pretty;
+  hyphens: manual;
+}
+.theme-gul-muhru .letter-body p:first-child::first-letter {
+  font-family: var(--g-script);
+  float: none;
+  font-size: 1.9em;
+  line-height: 0;
+  color: var(--g-copper);
+  padding-right: .02em;
+}
+
+/* bölüm başlıkları: büyük harf, iki yanda bakır kıl çizgi, ortada küçük baklava */
+.theme-gul-muhru .sec-title {
+  font-family: var(--g-caps);
+  font-weight: 400;
+  font-size: clamp(.86rem, 3.9vw, 1.02rem);
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--g-ink-soft);
+  margin: 58px 0 24px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.theme-gul-muhru .sec-title::before,
+.theme-gul-muhru .sec-title::after {
+  content: "";
+  flex: 0 1 70px;
+  min-width: 18px;
+  height: 1px;
+  margin: 0;
+  background: linear-gradient(90deg, transparent, var(--g-copper));
+}
+.theme-gul-muhru .sec-title::after { background: linear-gradient(90deg, var(--g-copper), transparent); }
+
+.theme-gul-muhru .kicker,
+.theme-gul-muhru .s-kicker {
+  font-family: var(--g-caps);
+  font-weight: 400;
+  letter-spacing: .3em;
+  color: var(--g-copper);
+}
+
+/* geri sayım */
+.theme-gul-muhru .cd-grid { gap: 10px; }
+.theme-gul-muhru .cd-cell {
+  border: 0;
+  border-top: 1px solid var(--g-hair);
+  border-bottom: 1px solid var(--g-hair);
+  border-radius: 0;
+  background: transparent;
+  padding: 14px 2px 12px;
+}
+.theme-gul-muhru .cd-cell::before { display: none; }
+.theme-gul-muhru .cd-cell strong { font-family: var(--g-text); font-weight: 400; font-size: clamp(1.9rem, 8vw, 2.6rem); color: var(--g-ink); font-variant-numeric: lining-nums tabular-nums; }
+.theme-gul-muhru .cd-cell span { font-family: var(--g-caps); font-weight: 400; font-size: .68rem; letter-spacing: .22em; color: var(--g-copper); opacity: 1; }
+.theme-gul-muhru .cd-done { font-family: var(--g-script); font-style: normal; font-size: 2.2rem; color: var(--g-copper); }
+
+/* söz */
+.theme-gul-muhru .quote::before,
+.theme-gul-muhru .quote::after { background: linear-gradient(90deg, transparent, var(--g-copper), transparent); }
+.theme-gul-muhru .quote-mark { font-family: var(--g-text); font-style: italic; color: var(--g-copper-lt); font-size: 3.6rem; }
+.theme-gul-muhru .quote blockquote { font-family: var(--g-text); font-style: italic; font-size: 1.42rem; line-height: 1.6; color: var(--g-ink); }
+.theme-gul-muhru .quote figcaption { font-family: var(--g-caps); font-weight: 400; letter-spacing: .26em; font-size: .76rem; color: var(--g-copper); opacity: 1; }
+
+/* program kartları: ince çift kıl çerçeve, gölgesiz kâğıt */
+.theme-gul-muhru .event {
+  background: rgba(255, 252, 247, .55);
+  border: 1px solid var(--g-hair);
+  border-radius: 2px;
+  box-shadow: none;
+  outline: 1px solid rgba(168, 99, 76, .22);
+  outline-offset: -7px;
+  padding: 34px 26px 28px;
+}
+.theme-gul-muhru .event-type { font-family: var(--g-caps); font-weight: 400; font-size: .86rem; letter-spacing: .32em; color: var(--g-copper); margin-bottom: 12px; }
+.theme-gul-muhru .event-date { font-family: var(--g-text); font-weight: 400; font-size: 1.42rem; color: var(--g-ink); }
+.theme-gul-muhru .event-time { font-family: var(--g-caps); font-weight: 400; font-size: 1.12rem; letter-spacing: .14em; color: var(--g-ink-soft); margin: 6px 0 16px; }
+.theme-gul-muhru .event-time .tz { font-family: var(--g-text); font-style: italic; letter-spacing: 0; font-size: .86rem; margin-top: 2px; }
+.theme-gul-muhru .event-venue { font-family: var(--g-text); font-style: italic; font-weight: 500; font-size: 1.36rem; color: var(--g-ink); }
+.theme-gul-muhru .event-address { font-family: var(--g-text); font-size: 1.02rem; line-height: 1.55; color: var(--g-ink-soft); opacity: 1; }
+.theme-gul-muhru .event-desc { font-family: var(--g-text); font-size: 1rem; }
+
+.theme-gul-muhru .map-card { border-radius: 2px; border-color: var(--g-hair); background: rgba(255, 250, 245, .7); }
+.theme-gul-muhru .map-open::after { opacity: .6; }
+.theme-gul-muhru .map-open strong { font-family: var(--g-text); font-weight: 500; font-size: 1.08rem; }
+.theme-gul-muhru .map-open small { font-family: var(--g-caps); letter-spacing: .14em; font-size: .7rem; }
+.theme-gul-muhru .map-pin { background: var(--g-ink); box-shadow: 0 0 0 4px rgba(168, 99, 76, .18); }
+.theme-gul-muhru .map-show { font-family: var(--g-caps); font-weight: 400; letter-spacing: .18em; font-size: .74rem; border-top-color: var(--g-hair); }
+
+/* düğmeler: ince harfli, kıl çerçeveli */
+.theme-gul-muhru .ibtn {
+  font-family: var(--g-caps);
+  font-weight: 400;
+  font-size: .8rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  min-height: 46px;
+  padding: 0 18px;
+  background: var(--g-ink);
+  border-color: var(--g-ink);
+}
+.theme-gul-muhru .ibtn:hover { box-shadow: 0 0 0 3px rgba(168, 99, 76, .25); transform: none; }
+.theme-gul-muhru .ibtn-ghost { background: transparent; color: var(--g-ink); border-color: var(--g-hair); }
+.theme-gul-muhru .ibtn-wa { background: #1f6b47; border-color: #1f6b47; }
+.theme-gul-muhru .ibtn .ic { width: 16px; height: 16px; }
+
+/* galeri ve bilgi bölümleri */
+.theme-gul-muhru .gal-item img { border-radius: 2px; }
+.theme-gul-muhru .cover-photo img { border-radius: 2px; box-shadow: 0 0 0 1px var(--g-hair), 0 24px 50px -30px rgba(71, 16, 31, .5); }
+.theme-gul-muhru .info p,
+.theme-gul-muhru .contact p { font-family: var(--g-text); font-size: 1.12rem; line-height: 1.7; }
+
+/* katılım formu */
+.theme-gul-muhru .rsvp > p { font-family: var(--g-text); font-style: italic; font-size: 1.05rem; }
+.theme-gul-muhru .rsvp-choice legend { font-family: var(--g-text); font-style: italic; font-weight: 400; font-size: 1.3rem; }
+.theme-gul-muhru .pill span { font-family: var(--g-caps); font-weight: 400; letter-spacing: .16em; font-size: .86rem; text-transform: uppercase; border-radius: 2px; border-color: var(--g-hair); min-height: 54px; }
+.theme-gul-muhru .pill input:checked + span { background: var(--g-ink); border-color: var(--g-ink); }
+.theme-gul-muhru .ifield { font-family: var(--g-caps); font-weight: 400; letter-spacing: .14em; font-size: .78rem; text-transform: uppercase; color: var(--g-ink-soft); }
+.theme-gul-muhru .ifield small { text-transform: none; letter-spacing: 0; font-family: var(--g-text); font-style: italic; }
+.theme-gul-muhru .ifield input,
+.theme-gul-muhru .ifield textarea {
+  font-family: var(--g-text);
+  font-size: 1.1rem;
+  letter-spacing: 0;
+  text-transform: none;
+  border: 0;
+  border-bottom: 1px solid var(--g-copper);
+  border-radius: 0;
+  background: rgba(255, 252, 247, .6);
+  padding: 11px 10px;
+}
+.theme-gul-muhru .ifield textarea { border: 1px solid var(--g-hair); padding: 10px 12px; background: rgba(255, 252, 247, .5); }
+.theme-gul-muhru .ifield input:focus,
+.theme-gul-muhru .ifield textarea:focus { outline: none; border-color: var(--g-copper); box-shadow: 0 1px 0 0 var(--g-copper); }
+.theme-gul-muhru .ibtn-primary { margin-top: 14px; }
+.theme-gul-muhru .rsvp-flash { font-family: var(--g-text); font-weight: 500; border-radius: 2px; }
+.theme-gul-muhru .muted.small,
+.theme-gul-muhru .rsvp .muted { font-family: var(--g-text); font-style: italic; }
+
+/* alt imza */
+.theme-gul-muhru .inv-foot { margin-top: 70px; }
+.theme-gul-muhru .inv-foot-names { font-family: var(--g-script); font-size: 2.6rem; line-height: 1.2; }
+
+/* ---------------------------------------------------------------- hikâye videosu üzerindeki bilgiler */
+.theme-gul-muhru .story-box { color: var(--g-ink); }
+.theme-gul-muhru .s-names { font-family: var(--g-script); font-size: 3.3em; line-height: 1.05; display: inline-block; }
+.theme-gul-muhru .s-date { font-family: var(--g-caps); font-size: .95em; letter-spacing: .24em; text-transform: uppercase; color: var(--g-ink-soft); }
+.theme-gul-muhru .s-evdate { font-family: var(--g-text); font-weight: 400; font-size: 1.3em; }
+.theme-gul-muhru .s-evtime { font-family: var(--g-caps); font-weight: 400; letter-spacing: .14em; font-size: 1.05em; color: var(--g-ink-soft); }
+.theme-gul-muhru .s-venue { font-family: var(--g-text); font-style: italic; font-weight: 500; font-size: 1.2em; }
+.theme-gul-muhru .s-quote { font-family: var(--g-text); font-style: italic; font-size: 1.38em; line-height: 1.5; }
+.theme-gul-muhru .s-by { font-family: var(--g-caps); font-weight: 400; letter-spacing: .24em; color: var(--g-copper); opacity: 1; }
+.theme-gul-muhru .s-cd .cd-cell { background: rgba(255, 252, 247, .55); }
+.theme-gul-muhru .s-place { border-radius: 2px; border-color: var(--g-hair); background: rgba(255, 252, 247, .82); }
+.theme-gul-muhru .s-place strong { font-family: var(--g-text); font-weight: 500; font-size: 1.05em; }
+.theme-gul-muhru .s-place small { font-family: var(--g-caps); letter-spacing: .12em; }
+.theme-gul-muhru .s-actions .ibtn { min-height: 42px; font-size: .72em; }
