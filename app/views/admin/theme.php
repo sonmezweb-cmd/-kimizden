@@ -10,6 +10,8 @@ $slots = [
   'video' => ['admin.media.video', 'admin.media.video_help', 'video/mp4', $t['media']['video_mp4']],
   'video_webm' => ['admin.media.video_webm', 'admin.media.video_webm_help', 'video/webm', $t['media']['video_webm']],
   'video_wide' => ['admin.media.video_wide', 'admin.media.video_wide_help', 'video/mp4', $t['media']['video_wide']],
+  'story_mp4' => ['admin.media.story', 'admin.media.story_help', 'video/mp4', $t['media']['story_mp4']],
+  'story_webm' => ['admin.media.story_webm', 'admin.media.video_webm_help', 'video/webm', $t['media']['story_webm']],
   'audio_ornament' => ['admin.media.audio_ornament', 'admin.media.audio_help', 'audio/*', $t['audio']['ornament'] ?? null],
   'audio_seal' => ['admin.media.audio_seal', 'admin.media.audio_help', 'audio/*', $t['audio']['seal'] ?? null],
   'audio_flap' => ['admin.media.audio_flap', 'admin.media.audio_help', 'audio/*', $t['audio']['flap'] ?? null],
@@ -38,6 +40,10 @@ $slots = [
     <p class="muted small"><?= e(t('admin.geometry_help')) ?></p>
     <div class="grid-3"><?php foreach (['flapLeft', 'flapRight', 'flapTipX', 'flapTipY', 'sealX', 'sealY', 'sealR', 'pocketSide', 'pocketTipY'] as $k): ?>
       <label class="field"><span><?= e($k) ?> (%)</span><input name="geo[<?= $k ?>]" inputmode="decimal" value="<?= e((string)($g[$k] ?? '')) ?>"></label><?php endforeach; ?></div>
+  </details>
+  <details><summary><?= e(t('admin.story_stops')) ?></summary>
+    <p class="muted small"><?= e(t('admin.story_stops_help')) ?></p>
+    <textarea name="story_stops" rows="7" style="font-family:ui-monospace,monospace"><?php foreach ($t['story_stops'] as $st) echo e($st['type'] . ' ' . $st['t'] . ' ' . implode(',', $st['zone'])) . "\n"; ?></textarea>
   </details>
   <button class="btn btn-primary"><?= e(t('common.save')) ?></button>
 </form>

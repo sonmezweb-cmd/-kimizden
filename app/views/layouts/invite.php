@@ -31,6 +31,7 @@ $noindex = $mode !== 'showcase';
 <body class="inv theme-<?= e($theme['slug']) ?> mode-<?= e($mode) ?>" style="--t-surface: <?= e($col['surface'] ?? '#5a1630') ?>; --t-ink: <?= e($col['ink'] ?? '#3a1426') ?>; --t-accent: <?= e($col['accent'] ?? '#b87459') ?>; --t-paper: <?= e($col['paper'] ?? '#f6efe4') ?>; --t-lining: <?= e($col['lining'] ?? '#2b0816') ?>; --t-edge: <?= e($col['paperEdge'] ?? ($col['accent'] ?? '#b87459')) ?>; --paper-img: url('<?= e($theme['media']['paper'] ?? '') ?>');">
 <?= $content ?>
 <script src="<?= e(asset('js/envelope.js')) ?>" defer></script>
+<?php if (!empty($story)): ?><script src="<?= e(asset('js/story.js')) ?>" defer></script><?php endif; ?>
 <script src="<?= e(asset('js/invite.js')) ?>" defer></script>
 </body>
 </html>

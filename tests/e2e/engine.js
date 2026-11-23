@@ -140,6 +140,50 @@ const scrollFrac = async (p, f, wait = 500) => { await p.evaluate((f) => { const
   await p.screenshot({ path: `${shots}/nojs.png`, fullPage: false });
   await p.context().close();
 
+  scen = 'F2. Hikâye videosu (resimli, duraklı kaydırma)';
+  p = await page({ viewport: { width: 390, height: 844 } });
+  check('Hikâye bölümü açık ve kaydırma payı ayarlandı', await p.evaluate(() => !document.getElementById('story').hidden && document.getElementById('story').offsetHeight > innerHeight * 3));
+  check('Hikâye videosu bölüme yaklaşmadan indirilmez', !(await p.evaluate(() => performance.getEntriesByType('resource').some(e => /story\.(mp4|webm)/.test(e.name)))));
+  const holdY = async (idx, frac) => p.evaluate(([idx, frac]) => { const segs = window.__ikzStory.segments(); let u = 0; for (const s of segs) { if (s.kind === 'hold' && s.i === idx) { u += s.len * frac; break; } u += s.len; } return document.getElementById('story').offsetTop + u * innerHeight; }, [idx, frac]);
+  await p.evaluate(() => window.scrollTo(0, document.getElementById('story').offsetTop - 5)); await p.waitForTimeout(2500);
+  const stopsN = await p.evaluate(() => document.querySelectorAll('.story-stop').length);
+  check('Örnek içerikte altı durak (isim, geri sayım, nikâh, söz, yemek, konum)', stopsN === 6, stopsN);
+  const tt = [];
+  for (const fr of [0.3, 0.7]) { await p.evaluate((y) => window.scrollTo(0, y), await holdY(2, fr)); await p.waitForTimeout(700); tt.push(await p.evaluate(() => window.__ikzStory.video().currentTime)); }
+  check('Durakta video durur (kaydırma sürerken zaman sabit ≈10,9 sn)', Math.abs(tt[0] - 10.9) < 0.05 && Math.abs(tt[1] - 10.9) < 0.05, tt.join(','));
+  check('Durak bilgisi görünür (nikâh saati HTML)', await p.evaluate(() => { const el = document.querySelectorAll('.story-stop')[2]; return +el.style.opacity > 0.9 && /17:30/.test(el.innerText); }));
+  const others = await p.evaluate(() => Array.from(document.querySelectorAll('.story-stop')).filter((e, i) => i !== 2 && +e.style.opacity > 0.01).length);
+  check('Aynı anda yalnız bir durak bilgisi', others === 0, others);
+  await p.evaluate((y) => window.scrollTo(0, y), await holdY(0, 0.5)); await p.waitForTimeout(900);
+  check('Geri kaydırmada önceki durağa döner (≈3,6 sn, isimler)', await p.evaluate(() => Math.abs(window.__ikzStory.video().currentTime - 3.6) < 0.05 && /İpek/.test(document.querySelectorAll('.story-stop')[0].innerText)));
+  await p.evaluate((y) => window.scrollTo(0, y), await holdY(5, 0.6)); await p.waitForTimeout(900);
+  check('Son durakta yol tarifi ve katılım düğmesi tıklanabilir', await p.evaluate(() => { const el = document.querySelectorAll('.story-stop')[5]; return el.classList.contains('is-on') && el.querySelector('a[href="#rsvp"]').tabIndex === 0 && !!el.querySelector('a.s-place'); }));
+  const zoneOk = await p.evaluate(() => Array.from(document.querySelectorAll('.story-stop')).every(el => { const b = el.querySelector('.story-box'); return b.scrollHeight <= el.clientHeight + 2; }));
+  check('Durak metinleri boş alana sığar (kesilmez)', zoneOk);
+  check('Hikâye etkinken mektupta geri sayım ve söz tekrar edilmez', await p.evaluate(() => getComputedStyle(document.querySelector('.letter .countdown')).display === 'none' && getComputedStyle(document.querySelector('.letter .quote')).display === 'none'));
+  check('Hikâye: hata/404 yok', p.errs.length === 0 && p.bad.length === 0, p.errs.concat(p.bad).join(' | '));
+  await p.context().close();
+  p = await page({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+  check('Hareket azaltmada hikâye gizli, bilgiler normal akışta (geri sayım görünür)', await p.evaluate(() => document.getElementById('story').hidden && getComputedStyle(document.querySelector('.letter .countdown')).display !== 'none'));
+  await p.context().close();
+  p = await page({ viewport: { width: 390, height: 844 } }, URL + '?novideo=1');
+  check('Video yok/düşük veride hikâye gizli', await p.evaluate(() => document.getElementById('story').hidden));
+  await p.context().close();
+  {
+    const ctx = await b.newContext({ viewport: { width: 390, height: 844 } });
+    const p2 = await ctx.newPage();
+    await p2.route(/story\.(mp4|webm)/, r => r.abort());
+    await p2.goto(base + URL, { waitUntil: 'load' });
+    await p2.evaluate(() => window.scrollTo(0, document.getElementById('story').offsetTop - 5));
+    await p2.waitForTimeout(2000);
+    check('Hikâye videosu yüklenemezse bölüm kaldırılır', await p2.evaluate(() => document.getElementById('story').hidden && !document.body.classList.contains('has-story')));
+    await ctx.close();
+  }
+  p = await page({ viewport: { width: 1440, height: 900 } });
+  await p.evaluate(() => window.scrollTo(0, document.getElementById('story').offsetTop + 200)); await p.waitForTimeout(1500);
+  check('Masaüstünde hikâye videosu esnetilmez (ortalı, 9:16)', await p.evaluate(() => { const m = document.getElementById('story-media').getBoundingClientRect(); return Math.abs(m.width / m.height - 0.5625) < 0.01 && m.height <= innerHeight + 1; }));
+  await p.context().close();
+
   scen = 'I. Ekran genişlikleri ve cihazlar';
   const pages = ['/', '/themes', '/themes/sedef-kivrimi', '/packages', '/faq', '/contact', '/login', '/register', '/ru/', '/preview/zeytin-varak', '/en/preview/sedef-kivrimi'];
   for (const w of [320, 390, 768, 1440]) {

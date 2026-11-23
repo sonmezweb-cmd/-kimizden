@@ -154,6 +154,34 @@ The rising card is bright pearl-white paper with a thin silver-lilac border.
 
 **Kontrol listesi:** son 1,6 saniyede kâğıt **tamamen boş ve sabit** mi? İlk kare posterle aynı mı? Zarf her karede ekranın dört köşesini dolduruyor mu? Video tam 8 sn mi? Sesi kaldırıldı mı?
 
-## 8. Lisanslar
+## 8. Hikâye videosu (zarftan sonra, resimli)
+
+Zarf açıldıktan sonra sayfada ikinci bir kaydırmalı sahne gelir: kâğıt dokulu, el çizimi bir hikâye videosu (davet çerçevesi → yürüyüş → nikâh kemeri → dans → kutlama → yol). Video **her durakta durur**; misafir kaydırmaya devam ederken müşterinin bilgisi videonun boş alanında gerçek HTML olarak belirir, sonra video bir sonraki sahneye ilerler.
+
+| Dosya | Açıklama |
+|---|---|
+| `themes/{tema}/story.mp4` | Dikey 9:16 (720×1280 veya 1080×1920), 24 fps, sessiz, sık anahtar kare |
+| `themes/{tema}/story.webm` | Aynı videonun VP9 kopyası (isteğe bağlı) |
+
+Kurulumla gelen hikâye videosu sizin ürettiğiniz 24 sn'lik videodur; Gül Mührü'nde özgün renkleriyle, Zeytin Varak ve Sedef Kıvrımı'nda yalnız gül/bakır çizgileri adaçayı yeşili ve leylağa çevrilerek kullanılır (kâğıt ve sıcak ışıklar korunur; `tools/media/recolor.py`).
+
+**Duraklar** (Yönetim → Temalar → tema → *Hikâye durakları*), her satır: `tür saniye sol,üst,sağ,alt` (boş alan, video yüzdesi):
+
+```
+names 3.6 14,30,86,70        isimler + tarih
+countdown 8.2 16,24,84,55    geri sayım
+event1 10.9 25,20,75,50      1. etkinlik (tür, tarih, saat, mekân)
+quote 15.6 16,24,84,54       çiftin sözü
+event2 19 15,24,85,56        2. etkinlik
+map 23.9 22,24,88,60         mekân kartları (yol tarifi), Ara / WhatsApp, Katılım bildir
+```
+
+Kullanılabilir türler: `names, countdown, event1, event2, quote, letter, map`. Müşterinin o bilgisi yoksa (ör. söz yazmadıysa veya tek etkinlik varsa) durak **atlanır**, video orada beklemez. Metin alanına sığmazsa yazı okunabilir sınıra kadar küçülür.
+
+**Davranış:** video, misafir zarfı açmaya başlayınca indirilir (sayfa açılışında değil). Telefonda tam ekran, geniş ekranda ortalı ve esnetilmeden gösterilir. Video yoksa, yüklenemezse, düşük veri modunda, hareket azaltmada veya JavaScript kapalıyken bölüm gizlenir; aynı bilgiler sayfanın normal akışında zaten bulunur. Hikâye etkinken mektuptaki geri sayım ve söz tekrar gösterilmez.
+
+**Yeni hikâye videosu üretirken:** sahne sonlarında görüntünün kısa süre sakin kalması ve boş alanların düz kâğıt olması yeterlidir; durak saniyelerini ve alanları videonuza göre bu ekrandan ayarlarsınız.
+
+## 9. Lisanslar
 
 Tema görselleri İkimizden'e aittir (müşteri tarafından sağlanmıştır). Yazı tipleri SIL Open Font License 1.1 kapsamındadır (`public/assets/fonts/LICENSE-*.txt`). Ayrıntı: `LISANSLAR.md`.

@@ -6,6 +6,45 @@ namespace App;
 /** Davetiye motoru için görünüm verisi. Vitrin, önizleme ve canlı yayın aynı motoru kullanır. */
 final class InviteView
 {
+    /**
+     * Hikâye videosu durakları: t = videonun durduğu saniye, zone = boş alan (video yüzdesi x1,y1,x2,y2).
+     * Teslim edilen 24 sn'lik resimli video için ölçülmüştür; yönetim panelinden tema başına değiştirilebilir.
+     */
+    public const DEFAULT_STORY_STOPS = [
+        ['type' => 'names', 't' => 3.6, 'zone' => [14, 30, 86, 70]],
+        ['type' => 'countdown', 't' => 8.2, 'zone' => [16, 24, 84, 55]],
+        ['type' => 'event1', 't' => 10.9, 'zone' => [25, 20, 75, 50]],
+        ['type' => 'quote', 't' => 15.6, 'zone' => [16, 24, 84, 54]],
+        ['type' => 'event2', 't' => 19.0, 'zone' => [15, 24, 85, 56]],
+        ['type' => 'map', 't' => 23.9, 'zone' => [22, 24, 88, 60]],
+    ];
+    public const STORY_TYPES = ['names', 'countdown', 'event1', 'event2', 'quote', 'map', 'letter'];
+
+    /** Müşteri bilgisi olan duraklar; bilgisi olmayan durak atlanır (video orada beklemez). */
+    public static function storyStops(array $theme, array $content, array $events, ?array $cover, string $lang): array
+    {
+        if (empty($theme['media']['story_mp4']) && empty($theme['media']['story_webm'])) return [];
+        $out = [];
+        foreach ((array)$theme['story_stops'] as $st) {
+            $type = $st['type'] ?? '';
+            if (!in_array($type, self::STORY_TYPES, true)) continue;
+            $has = match ($type) {
+                'names' => true,
+                'countdown' => $cover !== null,
+                'event1' => isset($events[0]),
+                'event2' => isset($events[1]),
+                'quote' => Content::text($content, $lang, 'quote') !== '',
+                'letter' => Content::text($content, $lang, 'letter') !== '',
+                'map' => (bool)array_filter($events, fn($e) => trim($e['venue'] . $e['address']) !== ''),
+            };
+            if (!$has) continue;
+            $z = array_map('floatval', array_slice(array_values((array)($st['zone'] ?? [15, 25, 85, 60])), 0, 4));
+            $out[] = ['type' => $type, 't' => max(0, (float)($st['t'] ?? 0)), 'zone' => $z];
+        }
+        usort($out, fn($a, $b) => $a['t'] <=> $b['t']);
+        return $out;
+    }
+
     public static function guestLang(array $content): string
     {
         $l = $_GET['l'] ?? null;
@@ -55,7 +94,11 @@ final class InviteView
             'sheen' => $theme['config']['sheen'] ?? 'copper',
             'cues' => ['ornament' => 0.14, 'seal' => 0.30, 'flap' => 0.38, 'paper' => 0.61],
         ];
+        usort($events, fn($a, $b) => strcmp($a['start_utc'], $b['start_utc']));
+        $storyStops = self::storyStops($theme, $content, $events, $cover, $lang);
+        $story = $storyStops ? ['mp4' => $theme['media']['story_mp4'], 'webm' => $theme['media']['story_webm'], 'paper' => $theme['media']['paper'], 'stops' => $storyStops] : null;
         return [
+            'story' => $story,
             'content' => $content, 'theme' => $theme, 'glang' => $lang, 'mode' => $mode, 'names' => $names, 'cover' => $cover,
             'events' => $events, 'pendingEvents' => $pending, 'gallery' => $gallery, 'coverPhoto' => $coverPhoto, 'engine' => $engine,
             'rsvpOpen' => !empty($content['rsvp']['enabled']) && !self::deadlinePassed($content),

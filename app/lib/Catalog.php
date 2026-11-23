@@ -50,7 +50,10 @@ final class Catalog
             'seal' => $f('seal.webp'),
             'paper' => $f('paper.webp'),
             'sheen' => $f('sheen-mask.webp'),
+            'story_mp4' => $f('story.mp4'),
+            'story_webm' => $f('story.webm'),
         ];
+        $r['story_stops'] = $r['config']['story_stops'] ?? InviteView::DEFAULT_STORY_STOPS;
         $audio = [];
         foreach (['ornament', 'seal', 'flap', 'paper'] as $a) {
             foreach (['mp3', 'm4a', 'ogg', 'wav'] as $ext) {

@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 S = {
 # misafir davetiyesi
+'inv.story': ('Hikâyemiz', 'Our story', 'Наша история'),
+'inv.see_you': ('Sizi bekliyoruz', 'We look forward to seeing you', 'Ждём вас'),
+'inv.rsvp_cta': ('Katılımınızı bildirin', 'Reply to the invitation', 'Ответить на приглашение'),
+'admin.media.story': ('Hikâye videosu (resimli, zarftan sonra)', 'Story video (illustrated, after the envelope)', 'Видео-история (после конверта)'),
+'admin.media.story_help': ('Dikey 9:16, 24 fps, sessiz; boş alanlara müşteri bilgileri yazılır. Duraklar aşağıda ayarlanır.', 'Portrait 9:16, 24 fps, silent; customer details are placed in its empty areas. Stops are set below.', 'Вертикальное 9:16, 24 к/с, без звука; данные клиента размещаются в пустых зонах. Остановки настраиваются ниже.'),
+'admin.media.story_webm': ('Hikâye videosu (WebM, isteğe bağlı)', 'Story video (WebM, optional)', 'Видео-история (WebM, по желанию)'),
+'admin.story_stops': ('Hikâye durakları', 'Story stops', 'Остановки истории'),
+'admin.story_stops_help': ('Her satır bir durak: tür, videonun durduğu saniye ve boş alan (video yüzdesi: sol, üst, sağ, alt). Türler: names, countdown, event1, event2, quote, letter, map. Bilgisi olmayan durak atlanır.', 'One stop per line: type, the second where the video pauses and the empty area (video %: left, top, right, bottom). Types: names, countdown, event1, event2, quote, letter, map. Stops without data are skipped.', 'По одной остановке в строке: тип, секунда остановки видео и пустая зона (% видео: слева, сверху, справа, снизу). Типы: names, countdown, event1, event2, quote, letter, map. Остановки без данных пропускаются.'),
 'inv.envelope': ('Davetiye zarfı', 'Invitation envelope', 'Конверт приглашения'),
 'inv.scroll_hint': ('Kaydırarak aç', 'Scroll to open', 'Прокрутите, чтобы открыть'),
 'inv.open': ('Aç', 'Open', 'Открыть'),

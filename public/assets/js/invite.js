@@ -13,8 +13,7 @@
   }
 
   // Geri sayım (mekânın UTC zamanına göre; misafirin saat diliminden bağımsız)
-  var cd = document.querySelector('[data-countdown]');
-  if (cd) {
+  Array.prototype.forEach.call(document.querySelectorAll('[data-countdown]'), function (cd) {
     var target = Date.parse(cd.getAttribute('data-countdown'));
     var cells = {};
     ['d', 'h', 'm', 's'].forEach(function (k) { cells[k] = cd.querySelector('[data-cd="' + k + '"]'); });
@@ -35,7 +34,7 @@
       setTimeout(tick, 1000 - (Date.now() % 1000));
     };
     tick();
-  }
+  });
 
   // Harita: dokununca yüklenir (gizlilik ve hız)
   Array.prototype.forEach.call(document.querySelectorAll('[data-map-show]'), function (b) {

@@ -223,6 +223,8 @@ final class AdminController
         'video' => ['file' => 'opening.mp4', 'kind' => 'video', 'max' => 60],
         'video_webm' => ['file' => 'opening.webm', 'kind' => 'webm', 'max' => 60],
         'video_wide' => ['file' => 'opening-wide.mp4', 'kind' => 'video', 'max' => 80],
+        'story_mp4' => ['file' => 'story.mp4', 'kind' => 'video', 'max' => 60],
+        'story_webm' => ['file' => 'story.webm', 'kind' => 'webm', 'max' => 60],
         'texture' => ['file' => 'texture.webp', 'kind' => 'image', 'max' => 8],
         'ornament' => ['file' => 'ornament.webp', 'kind' => 'image_alpha', 'max' => 8],
         'seal' => ['file' => 'seal.webp', 'kind' => 'image_alpha', 'max' => 4],
@@ -247,6 +249,10 @@ final class AdminController
                 if (isset($_POST['geo'][$g]) && is_numeric($_POST['geo'][$g])) $geo[$g] = max(0, min(100, (float)$_POST['geo'][$g]));
             }
             if ($geo) $cfg['geometry'] = $geo;
+            if (isset($_POST['story_stops'])) {
+                $stops = self::parseStops((string)$_POST['story_stops']);
+                if ($stops) $cfg['story_stops'] = $stops; else unset($cfg['story_stops']); // boş: varsayılan duraklar
+            }
             DB::update('themes', ['name_json' => jenc($name), 'description_json' => jenc($desc), 'config_json' => jenc($cfg),
                 'sound_volume' => max(0, min(100, (int)($_POST['sound_volume'] ?? 60))), 'is_active' => !empty($_POST['is_active']) ? 1 : 0,
                 'sort' => (int)($_POST['sort'] ?? 0), 'updated_at' => DB::now()], 'id = ?', [$t['id']]);
@@ -273,6 +279,20 @@ final class AdminController
             flash('success', t('common.deleted'));
         }
         redirect(url('/admin/themes/' . $id));
+    }
+
+    /** "names 3.6 14,30,86,70" biçimindeki satırları durak listesine çevirir. */
+    public static function parseStops(string $text): array
+    {
+        $out = [];
+        foreach (preg_split('/\R/u', $text) ?: [] as $line) {
+            if (!preg_match('/^\s*([a-z0-9]+)\s+([\d.]+)\s+([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*$/', $line, $m)) continue;
+            if (!in_array($m[1], \App\InviteView::STORY_TYPES, true)) continue;
+            $z = array_map(fn($v) => max(0, min(100, (float)$v)), [$m[3], $m[4], $m[5], $m[6]]);
+            if ($z[2] <= $z[0] || $z[3] <= $z[1]) continue;
+            $out[] = ['type' => $m[1], 't' => min(600, (float)$m[2]), 'zone' => $z];
+        }
+        return array_slice($out, 0, 12);
     }
 
     private function storeThemeFile(string $dir, array $def, ?array $f): ?string

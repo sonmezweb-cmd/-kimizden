@@ -61,6 +61,8 @@ $engineJson = jenc($engine + ['strings' => [
   </div>
 </section>
 
+<?php if (!empty($story)): ?><?= View::partial('invite/_story', ['story' => $story, 'c' => $c, 'L' => $L, 'na' => $na, 'nb' => $nb, 'font' => $font, 'cover' => $cover, 'events' => $events]) ?><?php endif; ?>
+
 <main class="letter" id="letter">
   <div class="letter-paper">
     <div id="names-flow-slot"></div>

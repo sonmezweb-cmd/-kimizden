@@ -168,3 +168,44 @@ html:not(.js) .env-poster { position: relative; height: 100svh; }
   .env-names { font-size: clamp(2rem, 9vh, 3.2rem); }
   .env-hint { bottom: 8px; }
 }
+
+/* ----------------------------------------------------------------- hikâye videosu */
+.story[hidden] { display: none !important; }
+.story { position: relative; background: var(--t-paper) var(--paper-img) center / cover; }
+.story-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.story-stage { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--t-paper) var(--paper-img) center / cover; }
+.story-media { position: absolute; }
+.story-media video { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity .35s; }
+.story-on .story-media video { opacity: 1; }
+/* geniş ekranda video ortada; kenarlar kâğıda yumuşakça karışır (dikey video esnetilmez) */
+.story-contain .story-media { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%); }
+.story-stop { position: absolute; z-index: 2; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; will-change: opacity, transform; }
+.story-stop.is-on { pointer-events: auto; }
+.story-box { width: 100%; text-align: center; font-size: clamp(14px, 3.9vw, 18px); color: var(--t-ink); line-height: 1.35; }
+.story-stop.story-scroll .story-box { max-height: 100%; overflow: auto; }
+.story-box p { margin: 0 0 .45em; }
+.s-kicker { font: 600 .72em/1.3 "Inter", sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--t-accent); }
+.s-names { font-size: 3.1em; line-height: 1.1; overflow-wrap: anywhere; }
+.s-names .amp { font-size: .65em; color: var(--t-accent); }
+.s-date { font: 500 1.15em/1.3 "Cormorant", serif; letter-spacing: .04em; }
+.s-evdate { font: 500 1.35em/1.25 "Cormorant", serif; }
+.s-evtime { font-weight: 600; }
+.s-venue { font: 600 1.2em/1.25 "Cormorant", serif; font-style: italic; }
+.s-quote { font: italic 400 1.45em/1.45 "Cormorant", serif; }
+.s-quote span { color: var(--t-accent); }
+.s-by { font: 600 .72em "Inter", sans-serif; letter-spacing: .14em; text-transform: uppercase; opacity: .75; }
+.s-letter { font: 400 1.15em/1.5 "Cormorant", serif; }
+.s-cd .cd-grid { grid-template-columns: repeat(4, 1fr); gap: .4em; max-width: none; }
+.s-cd .cd-cell { padding: .55em .1em .45em; background: color-mix(in srgb, #fff 60%, transparent); }
+.s-cd .cd-cell strong { font-size: 2em; }
+.s-cd .cd-cell span { font-size: .62em; }
+.s-place { display: flex; gap: .7em; align-items: center; text-align: left; text-decoration: none; padding: .55em .7em; margin: 0 0 .5em; border-radius: 14px; background: color-mix(in srgb, #fff 72%, transparent); border: 1px solid color-mix(in srgb, var(--t-accent) 35%, transparent); }
+.s-place .map-pin { width: 2.4em; height: 2.4em; }
+.s-place strong { display: block; font-size: 1em; }
+.s-place small { display: block; font-size: .78em; opacity: .75; }
+.s-actions { display: flex; flex-wrap: wrap; gap: .4em; justify-content: center; margin-top: .3em; }
+.s-actions .ibtn { min-height: 40px; padding: 0 12px; font-size: .78em; }
+.ibtn-primary-sm { background: var(--t-ink); color: var(--t-paper); }
+/* hikâye etkinken mektuptaki geri sayım ve söz tekrar edilmez */
+.has-story .letter .countdown, .has-story .letter .quote { display: none; }
+@media (prefers-reduced-motion: reduce) { .story { display: none !important; } }

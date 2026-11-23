@@ -1,12 +1,12 @@
 # Test Raporu — İkimizden 1.0.0
-Tarih: 2026-11-23 09:48 (UTC)  
+Tarih: 2026-11-23 12:38 (UTC)  
 Ortam: PHP 8.3.6, MariaDB 10.11.14, PHP geliştirme sunucusu (`public/router.php`), Playwright + Chromium (başsız). Kurulum her çalıştırmada **boş veritabanından** sihirbaz HTTP üzerinden çalıştırılarak yapıldı (`tests/run_clean.sh`).
 Komutlar: `bash tests/run_clean.sh` (A–E, G, H — HTTP üzerinden) · `node tests/e2e/engine.js` (F, I — tarayıcı).
 
 ## Özet
 | Geçti | Kaldı | Harici erişim bekliyor |
 |---|---|---|
-| 136 | 0 | 9 |
+| 151 | 0 | 9 |
 
 Açıklama: **Harici erişim bekliyor** satırları bu ortamda yapılamayan ve tamamlanmış gösterilmeyen doğrulamalardır (gerçek PayTR mağazası, alan adı, SMTP hesabı, fiziksel cihaz).
 
@@ -180,6 +180,26 @@ Açıklama: **Harici erişim bekliyor** satırları bu ortamda yapılamayan ve t
 | Hareket azaltma: hafif sürüm (220svh yok) | ✓ |  |  |
 | Hafif sürümde "Aç" isimleri gösterir | ✓ |  |  |
 | JavaScript kapalıyken isim, tarih, adres ve RSVP erişilebilir | ✓ |  |  |
+
+### F2. Hikâye videosu (resimli, duraklı kaydırma)
+
+| Kontrol | Geçti | Kaldı | Harici erişim bekliyor |
+|---|:---:|:---:|:---:|
+| Hikâye bölümü açık ve kaydırma payı ayarlandı | ✓ |  |  |
+| Hikâye videosu bölüme yaklaşmadan indirilmez | ✓ |  |  |
+| Örnek içerikte altı durak (isim, geri sayım, nikâh, söz, yemek, konum) | ✓ |  |  |
+| Durakta video durur (kaydırma sürerken zaman sabit ≈10,9 sn) | ✓ |  |  |
+| Durak bilgisi görünür (nikâh saati HTML) | ✓ |  |  |
+| Aynı anda yalnız bir durak bilgisi | ✓ |  |  |
+| Geri kaydırmada önceki durağa döner (≈3,6 sn, isimler) | ✓ |  |  |
+| Son durakta yol tarifi ve katılım düğmesi tıklanabilir | ✓ |  |  |
+| Durak metinleri boş alana sığar (kesilmez) | ✓ |  |  |
+| Hikâye etkinken mektupta geri sayım ve söz tekrar edilmez | ✓ |  |  |
+| Hikâye: hata/404 yok | ✓ |  |  |
+| Hareket azaltmada hikâye gizli, bilgiler normal akışta (geri sayım görünür) | ✓ |  |  |
+| Video yok/düşük veride hikâye gizli | ✓ |  |  |
+| Hikâye videosu yüklenemezse bölüm kaldırılır | ✓ |  |  |
+| Masaüstünde hikâye videosu esnetilmez (ortalı, 9:16) | ✓ |  |  |
 
 ### I. Ekran genişlikleri ve cihazlar
 
