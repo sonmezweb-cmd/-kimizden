@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'ikimizden/platform',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-claude/ikimizden-invitation-platform-x83sz5',
+        'version' => 'dev-claude/ikimizden-invitation-platform-x83sz5',
+        'reference' => '9232f4b1c7f7a59b9b5f1bf86aed589424b3a80e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'ikimizden/platform' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-claude/ikimizden-invitation-platform-x83sz5',
+            'version' => 'dev-claude/ikimizden-invitation-platform-x83sz5',
+            'reference' => '9232f4b1c7f7a59b9b5f1bf86aed589424b3a80e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
